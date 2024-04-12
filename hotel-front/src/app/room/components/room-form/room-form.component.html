@@ -1,0 +1,25 @@
+
+<form *ngIf="roomForm" [formGroup]="roomForm" (ngSubmit)="onSubmit()">
+    
+    <div>
+      <input type="hidden" formControlName="id" id="id">
+    </div>
+    <div>
+      <label for="view">Room View:</label>
+      <input type="text" formControlName="view" id="view">
+    </div>
+    <div>
+      <label for="capacity">Capacity:</label>
+      <input type="number" formControlName="capacity" id="capacity">
+    </div>
+    <div>
+      <label for="price">Price:</label>
+      <input type="number" formControlName="price" id="price">
+    </div>
+    <div>
+        <label for="image">Room Image:</label>
+        <input type="file" (change)="onFileSelected($event)" id="image" accept=".jpg,.png">
+    </div>
+    <button type="submit" [disabled]="roomForm.invalid" >Submit</button>
+  </form>
+  

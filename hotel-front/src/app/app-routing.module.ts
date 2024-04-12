@@ -17,7 +17,11 @@ const routes: Routes = [
   { path: 'user', component: BoardUserComponent },
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'admin', component: BoardAdminComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' }
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  {
+    path: 'rooms',
+    loadChildren: () => import('./room/room.module').then(m => m.RoomModule)
+  }
 ];
 
 @NgModule({
