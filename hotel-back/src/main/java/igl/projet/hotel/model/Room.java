@@ -15,7 +15,7 @@ public class Room {
     private int capacity;
     private String view;
     private Long price;
-
+    private String imageUrl;
     public void setId(Long id) {
         this.id = id;
     }
@@ -46,5 +46,13 @@ public class Room {
 
     public void setPrice(Long price) {
         this.price = price;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

@@ -1,25 +1,33 @@
 package igl.projet.hotel.controller;
 
 import igl.projet.hotel.model.Room;
+import igl.projet.hotel.payload.request.RoomRequest;
 import igl.projet.hotel.repository.RoomRepository;
+import igl.projet.hotel.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/room")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials="true")
 public class RoomController {
 
     @Autowired
     private RoomRepository roomRepository;
 
-    @PostMapping("/add")
-    public String addRoom(@RequestBody Room room){
-        roomRepository.save(room);
-        return("succufully added a room");
+    @Autowired
+    private RoomService roomService;
+
+
+    @PostMapping(path="/add" , consumes = {"multipart/form-data"})
+    public ResponseEntity<Room> createRoom(@ModelAttribute RoomRequest roomRequest) throws IOException {
+        Room room = roomService.createRoom(roomRequest);
+        return ResponseEntity.ok().body(room);
     }
 
     @PutMapping("/edit")
@@ -43,5 +51,9 @@ public class RoomController {
         return rooms;
     }
 
+    @GetMapping("/get")
+    public Optional<Room> getRooms(@RequestParam Long id){
+        return roomRepository.findById(id);
+    }
 
 }
