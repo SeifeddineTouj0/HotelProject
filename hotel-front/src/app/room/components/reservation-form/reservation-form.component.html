@@ -1,0 +1,19 @@
+
+<form *ngIf="reservationForm" [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
+    
+    <div>
+      <input type="hidden" formControlName="room" id="room" >
+      <input type="hidden" formControlName="user" id="user" >
+    </div>
+    <div>
+      <label for="view">Start Date:</label>
+      <input type="date" formControlName="startDate" id="startDate">
+    </div>
+    <div>
+      <label for="view">End Date:</label>
+      <input type="date" formControlName="endDate" id="endDate">
+    </div>
+    
+    <button type="submit" [disabled]="reservationForm.invalid" >Submit</button>
+  </form>
+  

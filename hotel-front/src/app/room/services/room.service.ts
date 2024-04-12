@@ -32,5 +32,7 @@ export class RoomService {
     return this.http.get(API_URL + '/api/room/get?id=' + id, { responseType: 'json' });
   }
 
+  
+
 
 }

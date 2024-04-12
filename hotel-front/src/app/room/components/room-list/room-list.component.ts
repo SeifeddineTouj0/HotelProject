@@ -59,6 +59,10 @@ export class RoomListComponent {
     });
   }
 
+  bookRoom(id:any){
+    this.router.navigate(['/rooms/book/'+id]); 
+  } 
+
   
 
 }
