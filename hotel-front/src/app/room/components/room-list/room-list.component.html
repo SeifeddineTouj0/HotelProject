@@ -1,3 +1,22 @@
+
+
+<form *ngIf="searchForm" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+    
+  
+  <div>
+    <label for="view">Start Date:</label>
+    <input type="date" formControlName="startDate" id="startDate">
+  </div>
+  <div>
+    <label for="view">End Date:</label>
+    <input type="date" formControlName="endDate" id="endDate">
+  </div>
+  
+  <button type="submit" [disabled]="searchForm.invalid" >Submit</button>
+</form>
+
+
+
 <table class="table">
     <thead>
       <tr>

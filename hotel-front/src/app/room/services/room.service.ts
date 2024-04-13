@@ -7,6 +7,7 @@ const API_URL = 'http://localhost:8082';
   providedIn: 'root'
 })
 export class RoomService {
+ 
   
 
 
@@ -30,6 +31,10 @@ export class RoomService {
 
   getRoom(id: any): Observable<any> {
     return this.http.get(API_URL + '/api/room/get?id=' + id, { responseType: 'json' });
+  }
+
+  searchRooms(startDate: any, endDate: any): Observable<any> {
+    return this.http.get(API_URL + '/api/room/available?startDate=' + startDate + '&endDate=' + endDate, { responseType: 'json' });
   }
 
   

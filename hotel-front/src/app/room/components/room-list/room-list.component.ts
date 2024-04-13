@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RoomService } from './../../services/room.service';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -11,14 +12,47 @@ import { Router } from '@angular/router';
 export class RoomListComponent {
 
   roomList:any = [];
+  searchForm : FormGroup | undefined;
 
-  constructor(private roomService : RoomService, private router: Router) { }
+  constructor(private roomService : RoomService, private router: Router,private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.initForm();
     this.roomService.getAllRooms().subscribe({
       next: data => {
         this.roomList = data;
         console.log(this.roomList);
+      },
+      error: err => {
+        if (err.error) {
+          try {
+            const res = JSON.parse(err.error);
+            this.roomList = res.message;
+          } catch {
+            this.roomList = `Error with status: ${err.status} - ${err.statusText}`;
+          }
+        } else {
+          this.roomList = `Error with status: ${err.status}`;
+        }
+      }
+    });
+  }
+
+  initForm(): void {
+    this.searchForm = this.formBuilder.group({
+      startDate: [''],
+      endDate: ['']
+    });
+  } 
+
+  onSubmit(): void {
+    if (this.searchForm && this.searchForm.invalid) {
+      return alert('Please fill all the required fields');
+    }
+    const { startDate, endDate } = this.searchForm?.value;
+    this.roomService.searchRooms(startDate,endDate).subscribe({
+      next: data => {
+        this.roomList = data;
       },
       error: err => {
         if (err.error) {
