@@ -7,6 +7,16 @@ public class RoomRequest {
     private String view;
     private Long price;
     private MultipartFile image;
+    private Long id;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
 
     public int getCapacity() {
         return capacity;

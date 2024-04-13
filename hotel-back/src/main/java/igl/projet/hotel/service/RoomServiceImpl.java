@@ -6,13 +6,13 @@ import igl.projet.hotel.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.UUID;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RoomServiceImpl implements RoomService{
@@ -47,5 +47,50 @@ public class RoomServiceImpl implements RoomService{
         roomRepository.save(room);
 
         return room;
+    }
+
+    @Override
+    public Room editRoom(RoomRequest roomRequest) {
+
+        Room room = new Room();
+        room.setId(roomRequest.getId());
+        room.setView(roomRequest.getView());
+        room.setPrice(roomRequest.getPrice());
+        room.setCapacity(roomRequest.getCapacity());
+        // room.setImageUrl(fileName);
+
+        roomRepository.save(room);
+        return room;
+    }
+
+
+
+    @Override
+    public void deleteRoom(Long id) {
+        roomRepository.deleteById(id);
+    }
+
+    public List<Room> getAllRooms(){
+        return roomRepository.findAll();
+    }
+    @Override
+    public Optional<Room> getRoom(Long id) {
+        return roomRepository.findById(id);
+    }
+
+    @Override
+    public List<Room> getAvailableReservations(String startDate, String endDate) {
+        Date startDateFormat = null;
+        Date endDateFormat = null;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            startDateFormat = dateFormat.parse(startDate);
+            endDateFormat = dateFormat.parse(endDate);
+        } catch (ParseException e) {
+            // Handle parsing exception
+            e.printStackTrace();
+        }
+        return roomRepository.findAvailableRooms( startDateFormat,  endDateFormat);
     }
 }

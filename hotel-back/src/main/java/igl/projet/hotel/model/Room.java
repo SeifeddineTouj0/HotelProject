@@ -1,9 +1,8 @@
 package igl.projet.hotel.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "rooms")
@@ -16,6 +15,11 @@ public class Room {
     private String view;
     private Long price;
     private String imageUrl;
+
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    private List<Reservation> reservations;
+
+
     public void setId(Long id) {
         this.id = id;
     }
