@@ -18,8 +18,6 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials="true")
 public class RoomController {
 
-    @Autowired
-    private RoomRepository roomRepository;
 
     @Autowired
     private RoomService roomService;
