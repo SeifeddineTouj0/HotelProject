@@ -2,13 +2,18 @@ package igl.projet.hotel.controller;
 
 import igl.projet.hotel.model.Room;
 import igl.projet.hotel.payload.request.RoomRequest;
+import igl.projet.hotel.repository.ReservationRepo;
 import igl.projet.hotel.repository.RoomRepository;
 import igl.projet.hotel.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +27,8 @@ public class RoomController {
 
     @Autowired
     private RoomService roomService;
+
+
 
 
     @PostMapping(path="/add" , consumes = {"multipart/form-data"})
@@ -54,6 +61,22 @@ public class RoomController {
     @GetMapping("/get")
     public Optional<Room> getRooms(@RequestParam Long id){
         return roomRepository.findById(id);
+    }
+
+    @GetMapping("/available")
+    public List<Room> getAvailableReservations(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") String startDate, @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam String endDate){
+        Date startDateFormat = null;
+        Date endDateFormat = null;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            startDateFormat = dateFormat.parse(startDate);
+            endDateFormat = dateFormat.parse(endDate);
+        } catch (ParseException e) {
+            // Handle parsing exception
+            e.printStackTrace();
+        }
+        return roomRepository.findAvailableRooms( startDateFormat,  endDateFormat);
     }
 
 }
