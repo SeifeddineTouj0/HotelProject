@@ -41,6 +41,8 @@ export class RoomFormComponent implements OnInit {
   initForm(): void {
     this.roomForm = this.formBuilder.group({
       id: [''],
+      name:[''],
+      description: [''],
       view: ['', Validators.required],
       capacity: ['', Validators.required],
       price: ['', Validators.required],
