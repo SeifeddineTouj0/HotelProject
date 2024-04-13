@@ -42,6 +42,8 @@ public class RoomServiceImpl implements RoomService{
         room.setView(roomRequest.getView());
         room.setPrice(roomRequest.getPrice());
         room.setCapacity(roomRequest.getCapacity());
+        room.setName(roomRequest.getName());
+        room.setDescription(roomRequest.getDescription());
        // room.setImageUrl(fileName);
 
         roomRepository.save(room);
@@ -57,6 +59,8 @@ public class RoomServiceImpl implements RoomService{
         room.setView(roomRequest.getView());
         room.setPrice(roomRequest.getPrice());
         room.setCapacity(roomRequest.getCapacity());
+        room.setName(roomRequest.getName());
+        room.setDescription(roomRequest.getDescription());
         // room.setImageUrl(fileName);
 
         roomRepository.save(room);

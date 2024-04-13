@@ -1,6 +1,7 @@
 package igl.projet.hotel.model;
 
 import jakarta.persistence.*;
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -15,6 +16,34 @@ public class Room {
     private String view;
     private Long price;
     private String imageUrl;
+
+    private String name;
+
+    private String description;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private List<Reservation> reservations;
