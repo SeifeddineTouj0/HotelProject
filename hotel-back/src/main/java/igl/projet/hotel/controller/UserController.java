@@ -4,6 +4,7 @@ import igl.projet.hotel.model.Reservation;
 import igl.projet.hotel.model.User;
 import igl.projet.hotel.repository.ReservationRepo;
 import igl.projet.hotel.repository.UserRepository;
+import igl.projet.hotel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,51 +19,30 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
 
     @Autowired
     ReservationRepo reservationRepo;
 
     @PutMapping(path="/edit/{userId}")
     public ResponseEntity<User> editUser(@PathVariable Long userId, @RequestBody User updatedUser) {
-        Optional<User> optionalUser = userRepository.findById(userId);
-        if (optionalUser.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        User existingUser = optionalUser.get();
-
-        // Update only the fields that are allowed to be updated
-        existingUser.setUsername(updatedUser.getUsername());
-        existingUser.setEmail(updatedUser.getEmail());
-        existingUser.setAddress(updatedUser.getAddress());
-        existingUser.setRoles(updatedUser.getRoles());
-        // Add other fields that can be updated as needed
-
-        /* If the password field in the updatedUser is not null or empty, update it
-        String newPassword = updatedUser.getPassword();
-        if (newPassword != null && !newPassword.isEmpty()) {
-            // Encrypt or hash the password before saving
-            existingUser.setPassword(passwordEncoder.encode(newPassword));
-        }*/
-
-        User savedUser = userRepository.save(existingUser);
+        User savedUser = userService.editUser(userId,updatedUser);
         return ResponseEntity.ok().body(savedUser);
     }
 
     @GetMapping("/get/{userId}")
     Optional<User> getUser(@PathVariable Long userId){
-        return userRepository.findById(userId);
+        return userService.getUser(userId);
     }
 
     @GetMapping("/show")
     List<User> getAllUsers(){
-        return userRepository.findAll();
+        return userService.getAllUsers();
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Long> deletedRoom(@PathVariable Long id){
-        userRepository.deleteById(id);
+    public ResponseEntity<Long> deletedUser(@PathVariable Long id){
+        userService.deleteUser(id);
         return ResponseEntity.ok().body(id);
     }
 

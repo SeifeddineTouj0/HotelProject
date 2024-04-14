@@ -1,5 +1,6 @@
 package igl.projet.hotel.service;
 
+import igl.projet.hotel.model.Availability;
 import igl.projet.hotel.model.Room;
 import igl.projet.hotel.payload.request.RoomRequest;
 import igl.projet.hotel.repository.RoomRepository;
@@ -19,6 +20,9 @@ public class RoomServiceImpl implements RoomService{
 
     @Autowired
     private RoomRepository roomRepository;
+
+    @Autowired
+    private AvailabilityService availabilityService;
 
     @Value("${upload.directory}")
     private String uploadDirectory;
@@ -44,7 +48,16 @@ public class RoomServiceImpl implements RoomService{
         room.setCapacity(roomRequest.getCapacity());
         room.setName(roomRequest.getName());
         room.setDescription(roomRequest.getDescription());
-       // room.setImageUrl(fileName);
+
+        if (roomRequest.getAvailabilities()!=null && !roomRequest.getAvailabilities().isEmpty()) {
+            for (Availability availability : roomRequest.getAvailabilities()) {
+                availabilityService.createAvailability(availability);
+                availability.setRoom(room);
+            }
+           // room.setAvailabilities(roomRequest.getAvailabilityList());
+        }
+
+        // room.setImageUrl(fileName);
 
         roomRepository.save(room);
 
@@ -61,6 +74,16 @@ public class RoomServiceImpl implements RoomService{
         room.setCapacity(roomRequest.getCapacity());
         room.setName(roomRequest.getName());
         room.setDescription(roomRequest.getDescription());
+
+        if (roomRequest.getAvailabilities()!=null && !roomRequest.getAvailabilities().isEmpty()) {
+            for (Availability availability : roomRequest.getAvailabilities()) {
+                availabilityService.editAvailability(availability);
+                availability.setRoom(room);
+            }
+            // room.setAvailabilities(roomRequest.getAvailabilityList());
+        }
+
+
         // room.setImageUrl(fileName);
 
         roomRepository.save(room);

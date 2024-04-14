@@ -1,6 +1,9 @@
 package igl.projet.hotel.payload.request;
 
+import igl.projet.hotel.model.Availability;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 public class RoomRequest {
     private int capacity;
@@ -12,6 +15,16 @@ public class RoomRequest {
     private String name;
 
     private String description;
+
+    private List<Availability> availabilities;
+
+    public List<Availability> getAvailabilities() {
+        return availabilities;
+    }
+
+    public void setAvailabilities(List<Availability> availabilities) {
+        this.availabilities = availabilities;
+    }
 
     public String getName() {
         return name;

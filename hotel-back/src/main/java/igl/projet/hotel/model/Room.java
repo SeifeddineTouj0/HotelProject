@@ -1,5 +1,6 @@
 package igl.projet.hotel.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.w3c.dom.Text;
 
@@ -21,6 +22,25 @@ public class Room {
 
     private String description;
 
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    private List<Availability> availabilities;
+
+    public List<Availability> getAvailabilities() {
+        return availabilities;
+    }
+
+    public void setAvailabilities(List<Availability> availabilities) {
+        this.availabilities = availabilities;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
     public String getName() {
         return name;
     }
@@ -36,6 +56,7 @@ public class Room {
     public void setDescription(String description) {
         this.description = description;
     }
+
 
 
 

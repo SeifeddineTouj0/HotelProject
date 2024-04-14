@@ -25,8 +25,8 @@ public class RoomController {
 
 
 
-    @PostMapping(path="/add" , consumes = {"multipart/form-data"})
-    public ResponseEntity<Room> createRoom(@ModelAttribute RoomRequest roomRequest) throws IOException {
+    @PostMapping(path="/add" )
+    public ResponseEntity<Room> createRoom(@RequestBody RoomRequest roomRequest) throws IOException {
         Room room = roomService.createRoom(roomRequest);
         return ResponseEntity.ok().body(room);
     }
