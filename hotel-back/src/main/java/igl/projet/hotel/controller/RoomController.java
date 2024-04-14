@@ -7,6 +7,7 @@ import igl.projet.hotel.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -26,34 +27,45 @@ public class RoomController {
 
 
     @PostMapping(path="/add" )
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Room> createRoom(@RequestBody RoomRequest roomRequest) throws IOException {
         Room room = roomService.createRoom(roomRequest);
         return ResponseEntity.ok().body(room);
     }
 
+
     @PutMapping(path="/edit" , consumes = {"multipart/form-data"})
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Room> editRoom(@ModelAttribute RoomRequest roomRequest){
         Room room = roomService.editRoom(roomRequest);
         return ResponseEntity.ok().body(room);
     }
 
+
     @DeleteMapping("/delete")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Long> deletedRoom(@RequestParam Long id){
         roomService.deleteRoom(id);
         return ResponseEntity.ok().body(id);
     }
 
+
     @GetMapping("/show")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public List<Room> getAllRooms(){
        return roomService.getAllRooms();
     }
 
+
     @GetMapping("/get")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public Optional<Room> getRoom(@RequestParam Long id){
         return roomService.getRoom(id);
     }
 
+
     @GetMapping("/available")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public List<Room> getAvailableReservations(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") String startDate, @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam String endDate){
        return roomService.getAvailableReservations(startDate,endDate);
     }

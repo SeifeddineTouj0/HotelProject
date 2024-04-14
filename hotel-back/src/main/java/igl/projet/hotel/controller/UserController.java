@@ -7,6 +7,7 @@ import igl.projet.hotel.repository.UserRepository;
 import igl.projet.hotel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
@@ -21,8 +22,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @Autowired
-    ReservationRepo reservationRepo;
+
 
     @PutMapping(path="/edit/{userId}")
     public ResponseEntity<User> editUser(@PathVariable Long userId, @RequestBody User updatedUser) {
@@ -41,6 +41,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Long> deletedUser(@PathVariable Long id){
         userService.deleteUser(id);
         return ResponseEntity.ok().body(id);

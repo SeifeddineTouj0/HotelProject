@@ -6,6 +6,7 @@ import igl.projet.hotel.repository.UserRepository;
 import igl.projet.hotel.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,23 +24,36 @@ public class ReservationController {
     @Autowired
     private UserRepository userRepository;
 
+
+
     @PostMapping("/add")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Reservation> addReservation(@RequestBody Reservation reservation) throws Exception {
         reservationService.addReservation(reservation);
         return ResponseEntity.ok().body(reservation);
     }
 
+
+
     @GetMapping("/show")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public List<Reservation> getReservations(){
         return reservationService.getReservations();
     }
 
+
+
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Long> deletedReservation(@PathVariable Long id){
         reservationService.deleteReservation(id);
         return ResponseEntity.ok().body(id);
     }
+
+
+
     @GetMapping("/user/{userId}")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public List<Reservation> getReservationsByUser(@PathVariable Long userId){
         Optional<User> user= userRepository.findById(userId);
         return reservationService.getReservationsByUser(user);

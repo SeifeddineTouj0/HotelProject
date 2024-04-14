@@ -62,7 +62,7 @@ public class Room {
 
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
-    @JsonIgnore 
+    @JsonIgnore
     private List<Reservation> reservations;
 
 
