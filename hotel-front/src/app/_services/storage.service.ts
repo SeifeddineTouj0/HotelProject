@@ -1,12 +1,17 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 const USER_KEY = 'auth-user';
+const API_URL = 'http://localhost:8082';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
-  constructor() {}
+  
+  
+  constructor(private http: HttpClient) {}
 
   clean(): void {
     window.sessionStorage.clear();
@@ -34,4 +39,10 @@ export class StorageService {
 
     return false;
   }
+
+  
+
+  
+
+
 }
