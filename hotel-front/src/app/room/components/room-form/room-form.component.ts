@@ -74,7 +74,7 @@ export class RoomFormComponent implements OnInit {
 
     if (this.isEdit) {
       this.roomService.editRoom(formData).subscribe(() => {
-        this.router.navigate(['/rooms']);
+        this.router.navigate(['/rooms/admin']);
       });
     } else {
       console.log('formData', formData)

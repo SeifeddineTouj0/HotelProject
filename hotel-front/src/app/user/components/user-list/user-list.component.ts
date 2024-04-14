@@ -39,7 +39,7 @@ export class UserListComponent {
   
 
   editUser(id:any){
-    this.router.navigate(['/user/edit/'+id]); 
+    this.router.navigate(['/users/edit/'+id]); 
   }
   
   deleteUser(room:any){

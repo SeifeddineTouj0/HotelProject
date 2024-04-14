@@ -7,6 +7,8 @@ import { RoomDetailComponent } from './components/room-detail/room-detail.compon
 import { RoomFormComponent } from './components/room-form/room-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ReservationFormComponent } from './components/reservation-form/reservation-form.component';
+import { RoomListAdminComponent } from './components/room-list-admin/room-list-admin.component';
+import { ReservationListComponent } from './components/reservation-list/reservation-list.component';
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { ReservationFormComponent } from './components/reservation-form/reservat
     RoomListComponent,
     RoomDetailComponent,
     RoomFormComponent,
-    ReservationFormComponent
+    ReservationFormComponent,
+    RoomListAdminComponent,
+    ReservationListComponent
   ],
   imports: [
     CommonModule,

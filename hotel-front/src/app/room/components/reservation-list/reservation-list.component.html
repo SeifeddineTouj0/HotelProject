@@ -1,0 +1,22 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Checkin </th>
+        <th scope="col">Checkout</th>
+        <th scope="col">Price</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reservation of reservationList ">
+        <td scope="row">{{reservation.startDate | date:'short'}}</td>
+        <td>{{reservation.endDate | date:'short' }}</td>
+        <td>{{reservation.room.price}}</td>
+        <td></td>
+        <td>
+          <button class="btn btn-primary" (click)="editReservation(reservation.id)">Edit</button>
+          <button class="btn btn-danger" (click)="deleteReservation(reservation.id)">Delete</button>
+        </td>    
+    </tr>
+    </tbody>
+  </table>

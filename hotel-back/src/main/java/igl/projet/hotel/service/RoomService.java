@@ -17,4 +17,5 @@ public interface RoomService {
     Optional<Room> getRoom(Long id);
 
     List<Room> getAvailableReservations(String startDate, String endDate);
+
 }

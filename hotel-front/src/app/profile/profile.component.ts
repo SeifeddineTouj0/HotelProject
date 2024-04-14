@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../_services/storage.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { UserService } from './../_services/user.service';
+import { ReservationsService } from '../room/services/reservations.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,8 +12,9 @@ import { UserService } from './../_services/user.service';
 export class ProfileComponent implements OnInit {
   currentUser: any;
   profileForm : FormGroup | undefined;
+  reservationsList:any;
 
-  constructor(private userService: UserService,private storageService : StorageService, private formBuilder : FormBuilder) { }
+  constructor(private userService: UserService,private storageService : StorageService, private formBuilder : FormBuilder, private reservationsService : ReservationsService) { }
 
   ngOnInit(): void {
     this.userService.getUser(this.storageService.getUser().id).subscribe({
@@ -20,6 +22,15 @@ export class ProfileComponent implements OnInit {
         this.currentUser = data;
         console.log(data);
         this.initForm();
+        this.reservationsService.getUserReservations(this.currentUser.id).subscribe({
+          next: (data: any) => {
+            this.reservationsList = data;
+            console.log(data);
+          },
+          error: (err: any) => {
+            console.log(err);
+          }
+        });
       }
     });
 

@@ -3,6 +3,7 @@ package igl.projet.hotel.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -39,6 +40,7 @@ public class User {
   private Set<Role> roles = new HashSet<>();
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  @JsonIgnore
   private Set<Reservation> reservations = new HashSet<>();
 
   public Set<Reservation> getReservations() {

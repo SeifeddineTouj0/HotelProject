@@ -1,11 +1,14 @@
 package igl.projet.hotel.controller;
 
+import igl.projet.hotel.model.Reservation;
 import igl.projet.hotel.model.User;
+import igl.projet.hotel.repository.ReservationRepo;
 import igl.projet.hotel.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +20,10 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
-    @PutMapping("/edit/{userId}")
+    @Autowired
+    ReservationRepo reservationRepo;
+
+    @PutMapping(path="/edit/{userId}")
     public ResponseEntity<User> editUser(@PathVariable Long userId, @RequestBody User updatedUser) {
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isEmpty()) {
@@ -30,6 +36,7 @@ public class UserController {
         existingUser.setUsername(updatedUser.getUsername());
         existingUser.setEmail(updatedUser.getEmail());
         existingUser.setAddress(updatedUser.getAddress());
+        existingUser.setRoles(updatedUser.getRoles());
         // Add other fields that can be updated as needed
 
         /* If the password field in the updatedUser is not null or empty, update it
@@ -52,6 +59,11 @@ public class UserController {
     List<User> getAllUsers(){
         return userRepository.findAll();
     }
-    
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Long> deletedRoom(@PathVariable Long id){
+        userRepository.deleteById(id);
+        return ResponseEntity.ok().body(id);
+    }
 
 }

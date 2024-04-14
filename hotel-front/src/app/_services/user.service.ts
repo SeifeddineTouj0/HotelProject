@@ -37,4 +37,6 @@ export class UserService {
   deleteUser(id: any): Observable<any> {
     return this.http.delete(API_URL + '/api/user/delete/' + id, { responseType: 'json' });
   }
+  
+  
 }

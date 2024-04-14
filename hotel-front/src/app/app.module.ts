@@ -16,6 +16,8 @@ import { BoardUserComponent } from './board-user/board-user.component';
 import { httpInterceptorProviders } from './_helpers/http.interceptor';
 import { NavbarAdminComponent } from './navbar-admin/navbar-admin.component';
 import { HeaderComponent } from './header/header.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { HeaderComponent } from './header/header.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

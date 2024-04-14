@@ -1,6 +1,7 @@
 package igl.projet.hotel.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -18,7 +19,6 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "user_id",nullable = false)
-    @JsonIgnore
     private User user;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -33,6 +33,17 @@ public class Reservation {
     private String email;
     private int adults;
     private String request;
+
+
+    private EReservation reservation=EReservation.PENDING;
+
+    public EReservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(EReservation reservation) {
+        this.reservation = reservation;
+    }
 
     public String getRequest() {
         return request;

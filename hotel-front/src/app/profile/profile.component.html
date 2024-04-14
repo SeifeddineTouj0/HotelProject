@@ -37,8 +37,8 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let reservation of currentUser.reservations" >
-                        <th scope="row">{{reservation.startDate | date:'short'}}</th>
+                      <tr *ngFor="let reservation of reservationsList" >
+                        <td scope="row">{{reservation.startDate | date:'short'}}</td>
                         <td>{{reservation.endDate | date:'short' }}</td>
                         <td>{{reservation.room.price}}</td>
                         <td></td>
@@ -77,7 +77,7 @@
                               </div>
                           </div>
                           <div class="col-12">
-                              <button class="btn btn-primary w-100 py-3" type="submit" [disabled]="profileForm.invalid">Send Message</button>
+                              <button class="btn btn-primary w-100 py-3" type="submit" [disabled]="profileForm.invalid">Update</button>
                           </div>
                       </div>
                   </form>
