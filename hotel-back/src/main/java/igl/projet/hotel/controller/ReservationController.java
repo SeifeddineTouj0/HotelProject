@@ -28,8 +28,14 @@ public class ReservationController {
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Reservation> addReservation(@RequestBody Reservation reservation) throws Exception {
+    public ResponseEntity<Reservation> addReservation(@RequestBody Reservation reservation)  {
         reservationService.addReservation(reservation);
+        return ResponseEntity.ok().body(reservation);
+    }
+
+    @PutMapping("/edit")
+    public ResponseEntity<Reservation> editReservation(@RequestBody Reservation reservation)  {
+        reservationService.editReservation(reservation);
         return ResponseEntity.ok().body(reservation);
     }
 

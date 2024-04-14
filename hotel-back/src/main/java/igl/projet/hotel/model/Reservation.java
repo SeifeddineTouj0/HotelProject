@@ -35,14 +35,14 @@ public class Reservation {
     private String request;
 
 
-    private EReservation reservation=EReservation.PENDING;
+    private EReservation status=EReservation.PENDING;
 
-    public EReservation getReservation() {
-        return reservation;
+    public EReservation getStatus() {
+        return status;
     }
 
-    public void setReservation(EReservation reservation) {
-        this.reservation = reservation;
+    public void setStatus(EReservation status) {
+        this.status = status;
     }
 
     public String getRequest() {

@@ -2,6 +2,7 @@ package igl.projet.hotel.service;
 
 import igl.projet.hotel.model.Reservation;
 import igl.projet.hotel.model.User;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,4 +16,5 @@ public interface ReservationService {
 
     void deleteReservation(Long id);
     List<Reservation> getReservationsByUser(Optional<User> user);
+    public Reservation editReservation(Reservation reservation);
 }
