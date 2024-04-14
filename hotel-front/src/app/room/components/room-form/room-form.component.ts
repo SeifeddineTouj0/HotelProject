@@ -64,6 +64,9 @@ export class RoomFormComponent implements OnInit {
     formData.append('view', this.roomForm?.get('view')?.value);
     formData.append('capacity', this.roomForm?.get('capacity')?.value);
     formData.append('price', this.roomForm?.get('price')?.value);
+    formData.append('name', this.roomForm?.get('name')?.value);
+    formData.append('description', this.roomForm?.get('description')?.value);
+    formData.append('id', this.roomForm?.get('id')?.value);
     if (this.selectedFile) {
       formData.append('image', this.selectedFile);
     }

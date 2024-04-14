@@ -34,6 +34,10 @@ export class ReservationFormComponent {
       endDate: ['', Validators.required],
       room: [this.roomId, Validators.required],
       user: [this.userId, Validators.required],
+      name: [''],
+      email: [''],
+      adults: [''],
+      request: ['']
     });
   }
 
@@ -42,13 +46,17 @@ export class ReservationFormComponent {
       return alert('Please fill all the required fields');
     }
     // Extract individual form values
-  const { room, user, startDate, endDate } = this.reservationForm?.value;
+  const { room, user, startDate, endDate,name,email,adults,request } = this.reservationForm?.value;
 
   const formData = {
     room: { id: room }, 
     user: { id: user }, 
     startDate,
-    endDate
+    endDate,
+    name,
+    email,
+    adults,
+    request
   };
 
 
