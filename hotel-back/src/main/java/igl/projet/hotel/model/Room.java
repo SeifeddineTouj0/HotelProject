@@ -23,6 +23,7 @@ public class Room {
     private String description;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Availability> availabilities;
 
     public List<Availability> getAvailabilities() {
@@ -61,6 +62,7 @@ public class Room {
 
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    @JsonIgnore 
     private List<Reservation> reservations;
 
 
