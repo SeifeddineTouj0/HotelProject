@@ -38,6 +38,27 @@ public class User {
              inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles = new HashSet<>();
 
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  private Set<Reservation> reservations = new HashSet<>();
+
+  public Set<Reservation> getReservations() {
+    return reservations;
+  }
+
+  public void setReservations(Set<Reservation> reservations) {
+    this.reservations = reservations;
+  }
+
+  private String address;
+
+  public String getAddress() {
+    return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
   public User() {
   }
 

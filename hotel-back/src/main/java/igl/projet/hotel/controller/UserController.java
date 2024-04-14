@@ -3,35 +3,55 @@ package igl.projet.hotel.controller;
 import igl.projet.hotel.model.User;
 import igl.projet.hotel.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/user")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials="true")
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    @PutMapping("/edit/{userId}")
+    public ResponseEntity<User> editUser(@PathVariable Long userId, @RequestBody User updatedUser) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
 
-    @PostMapping("/signup")
-    public void signUp(@RequestBody User user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        User existingUser = optionalUser.get();
+
+        // Update only the fields that are allowed to be updated
+        existingUser.setUsername(updatedUser.getUsername());
+        existingUser.setEmail(updatedUser.getEmail());
+        existingUser.setAddress(updatedUser.getAddress());
+        // Add other fields that can be updated as needed
+
+        /* If the password field in the updatedUser is not null or empty, update it
+        String newPassword = updatedUser.getPassword();
+        if (newPassword != null && !newPassword.isEmpty()) {
+            // Encrypt or hash the password before saving
+            existingUser.setPassword(passwordEncoder.encode(newPassword));
+        }*/
+
+        User savedUser = userRepository.save(existingUser);
+        return ResponseEntity.ok().body(savedUser);
     }
 
-    @PostMapping("/login")
-    public String login(){
-        return "Login Succcesful";
+    @GetMapping("/get/{userId}")
+    Optional<User> getUser(@PathVariable Long userId){
+        return userRepository.findById(userId);
     }
 
-    @GetMapping("/test")
-    public String test(){
-        return "test Succcesful";
+    @GetMapping("/show")
+    List<User> getAllUsers(){
+        return userRepository.findAll();
     }
+    
+
 }

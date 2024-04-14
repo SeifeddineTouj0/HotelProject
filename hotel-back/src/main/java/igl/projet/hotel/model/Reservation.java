@@ -1,5 +1,6 @@
 package igl.projet.hotel.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -17,6 +18,7 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "user_id",nullable = false)
+    @JsonIgnore
     private User user;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -26,6 +28,43 @@ public class Reservation {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = true)
     private Date endDate;
+
+    private String name;
+    private String email;
+    private int adults;
+    private String request;
+
+    public String getRequest() {
+        return request;
+    }
+
+    public void setRequest(String request) {
+        this.request = request;
+    }
+
+    public int getAdults() {
+        return adults;
+    }
+
+    public void setAdults(int adults) {
+        this.adults = adults;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public void setId(Long id) {
         this.id = id;
